@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/TodoDaily/static/css/main.76891149.css",
+    "main.js": "/TodoDaily/static/js/main.81417f98.js",
+    "static/js/453.a77dbcba.chunk.js": "/TodoDaily/static/js/453.a77dbcba.chunk.js",
+    "index.html": "/TodoDaily/index.html",
+    "main.76891149.css.map": "/TodoDaily/static/css/main.76891149.css.map",
+    "main.81417f98.js.map": "/TodoDaily/static/js/main.81417f98.js.map",
+    "453.a77dbcba.chunk.js.map": "/TodoDaily/static/js/453.a77dbcba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.76891149.css",
+    "static/js/main.81417f98.js"
+  ]
+}
