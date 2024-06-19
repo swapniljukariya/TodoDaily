@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/TodoDaily/static/css/main.d2a906bf.css",
-    "main.js": "/TodoDaily/static/js/main.22ed1f7a.js",
+    "main.css": "/TodoDaily/static/css/main.54a1f337.css",
+    "main.js": "/TodoDaily/static/js/main.fc67bc6b.js",
     "static/js/453.a77dbcba.chunk.js": "/TodoDaily/static/js/453.a77dbcba.chunk.js",
     "index.html": "/TodoDaily/index.html",
-    "main.d2a906bf.css.map": "/TodoDaily/static/css/main.d2a906bf.css.map",
-    "main.22ed1f7a.js.map": "/TodoDaily/static/js/main.22ed1f7a.js.map",
+    "main.54a1f337.css.map": "/TodoDaily/static/css/main.54a1f337.css.map",
+    "main.fc67bc6b.js.map": "/TodoDaily/static/js/main.fc67bc6b.js.map",
     "453.a77dbcba.chunk.js.map": "/TodoDaily/static/js/453.a77dbcba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d2a906bf.css",
-    "static/js/main.22ed1f7a.js"
+    "static/css/main.54a1f337.css",
+    "static/js/main.fc67bc6b.js"
   ]
 }
