@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/TodoDaily/static/css/main.951d8724.css",
-    "main.js": "/TodoDaily/static/js/main.c028cc58.js",
-    "static/js/453.a77dbcba.chunk.js": "/TodoDaily/static/js/453.a77dbcba.chunk.js",
+    "main.css": "/TodoDaily/static/css/main.02d96a09.css",
+    "main.js": "/TodoDaily/static/js/main.b1c293b0.js",
+    "static/js/453.1e489f20.chunk.js": "/TodoDaily/static/js/453.1e489f20.chunk.js",
     "index.html": "/TodoDaily/index.html",
-    "main.951d8724.css.map": "/TodoDaily/static/css/main.951d8724.css.map",
-    "main.c028cc58.js.map": "/TodoDaily/static/js/main.c028cc58.js.map",
-    "453.a77dbcba.chunk.js.map": "/TodoDaily/static/js/453.a77dbcba.chunk.js.map"
+    "main.02d96a09.css.map": "/TodoDaily/static/css/main.02d96a09.css.map",
+    "main.b1c293b0.js.map": "/TodoDaily/static/js/main.b1c293b0.js.map",
+    "453.1e489f20.chunk.js.map": "/TodoDaily/static/js/453.1e489f20.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.951d8724.css",
-    "static/js/main.c028cc58.js"
+    "static/css/main.02d96a09.css",
+    "static/js/main.b1c293b0.js"
   ]
 }
