@@ -27,7 +27,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Sidebar */}
-      <div className="w-80 bg-white text-black p-8 fixed left-0 top-0 h-screen flex flex-col font-sans shadow-lg z-30">
+      <div className="w-56 bg-white text-black p-8 fixed left-0 top-0 h-screen flex flex-col font-sans shadow-lg z-30">
         <h1 className="text-2xl font-bold mb-6 px-2 text-red-500">BuzzSocial</h1>
 
         {/* Navigation Links */}

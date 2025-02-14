@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <div className="flex w-full h-screen bg-white-400 overflow-hidden i">
       {/* Left Sidebar */}
-      <div className="fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200">
+      <div className="fixed left-0 top-0 h-screen w-64 bg-white ">
         <Sidebar />
       </div>
 
@@ -35,7 +35,7 @@ const Home = () => {
       </div>
 
       {/* Right Sidebar */}
-      <div className="fixed right-0 top-0 h-screen w-96 bg-white border-l ">
+      <div className="fixed right-0 top-0 h-screen w-96 bg-white  ">
         <RightSidebar />
       </div>
     </div>
