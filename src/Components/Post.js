@@ -1,0 +1,285 @@
+import React, { useState } from 'react';
+import { FaHeart, FaRegHeart, FaComment, FaRetweet, FaShare, FaTimes, FaExpand } from 'react-icons/fa';
+
+const Post = ({ 
+  username = "Cultural Chronicler",
+  handle = "@CultChronFeb5",
+  timestamp = "2h ago",
+  caption,
+  mediaUrl = [],
+  mediaType = "",
+  likes = 0, // Default to 0
+  comments = [], // Default to empty array
+  shares = 0, // Default to 0
+  avatar = "https://pbs.twimg.com/media/CMNBLY3XAAA3lMt.png"
+}) => {
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(likes);
+  const [isCommenting, setIsCommenting] = useState(false);
+  const [commentText, setCommentText] = useState("");
+  const [commentList, setCommentList] = useState(comments); // Initialize with comments array
+  const [selectedMedia, setSelectedMedia] = useState(null);
+
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+    setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
+  };
+
+  const handleCommentSubmit = () => {
+    if (commentText.trim()) {
+      const newComment = {
+        userId: "currentUserId", // Replace with actual current user ID
+        username: "CurrentUser", // Replace with actual current username
+        text: commentText,
+        createdAt: new Date().toISOString()
+      };
+      setCommentList([...commentList, newComment]);
+      setCommentText("");
+    }
+  };
+
+  const normalizedMedia = Array.isArray(mediaUrl) 
+    ? mediaUrl 
+    : mediaUrl 
+      ? [{ url: mediaUrl, type: mediaType }] 
+      : [];
+
+  const getGridClasses = (count) => {
+    if (count === 1) return "grid-cols-1";
+    if (count === 2) return "grid-cols-2";
+    if (count === 3) return "grid-cols-2 grid-rows-2";
+    if (count >= 4) return "grid-cols-2";
+    return "grid-cols-1";
+  };
+
+  return (
+    <div className="bg-white p-5 rounded-xl mb-6 max-w-2xl mx-auto">
+      {/* Header Section */}
+      <div className="flex justify-between items-center mb-4">
+        <div className="flex items-center">
+          <img 
+            src={avatar} 
+            alt="Profile"
+            className="w-12 h-12 rounded-full object-cover mr-3 border-2 border-blue-300"
+          />
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="font-bold text-gray-900 text-lg">{username}</h3>
+              <p className="text-sm text-gray-400">{handle}</p>
+            </div>
+            <p className="text-sm text-gray-400">{timestamp}</p>
+          </div>
+        </div>
+        <button
+          onClick={() => setIsFollowing(!isFollowing)}
+          className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all shadow-md ${
+            isFollowing 
+              ? 'bg-gray-200 text-gray-700 hover:bg-gray-300' 
+              : 'bg-red-600 text-white hover:bg-red-700'
+          }`}
+        >
+          {isFollowing ? 'Following' : 'Follow'}
+        </button>
+      </div>
+
+      {/* Caption */}
+      {caption && <p className="text-gray-900 mb-4 text-base leading-relaxed">{caption}</p>}
+
+      {/* Media (Images or Videos) */}
+      {normalizedMedia.length > 0 && (
+        <div className="mb-4 rounded-xl overflow-hidden border border-gray-300 shadow-sm">
+          <div className={`grid gap-0.5 ${getGridClasses(normalizedMedia.length)}`}>
+            {normalizedMedia.map((media, index) => (
+              <div
+                key={index}
+                className={`
+                  relative group cursor-pointer
+                  ${normalizedMedia.length === 3 && index === 0 ? 'row-span-2' : ''}
+                  aspect-square
+                `}
+                onClick={() => setSelectedMedia(media)}
+              >
+                {media.type === "image" ? (
+                  <img
+                    src={media.url}
+                    alt={`Post content ${index + 1}`}
+                    className="w-full h-full object-cover hover:brightness-95"
+                  />
+                ) : (
+                  <video
+                    className="w-full h-full object-cover"
+                    controls={false}
+                  >
+                    <source src={media.url} type="video/mp4" />
+                  </video>
+                )}
+                
+                {/* Fullscreen Button */}
+                <div className="absolute bottom-2 right-2 p-1.5 bg-black/50 rounded-full text-white">
+                  <FaExpand className="text-sm" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Full Media Modal */}
+      {selectedMedia && (
+        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+          <button
+            className="absolute top-4 right-4 text-white text-2xl"
+            onClick={() => setSelectedMedia(null)}
+          >
+            <FaTimes />
+          </button>
+          
+          <div className="max-w-full max-h-full">
+            {selectedMedia.type === "image" ? (
+              <img
+                src={selectedMedia.url}
+                alt="Full size media"
+                className="max-w-full max-h-[90vh] object-contain"
+              />
+            ) : (
+              <video
+                className="max-w-full max-h-[90vh]"
+                controls
+                autoPlay
+              >
+                <source src={selectedMedia.url} type="video/mp4" />
+              </video>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Stats */}
+      <div className="flex items-center text-gray-500 text-sm mb-4">
+        <span className="mr-5">{commentList.length.toLocaleString()} replies</span>
+        <span className="mr-5">{shares.toLocaleString()} reposts</span>
+        <span>{likeCount.toLocaleString()} likes</span>
+      </div>
+
+      {/* Interaction Buttons */}
+      <div className="flex justify-between border-t border-gray-300 pt-3">
+        <button 
+          onClick={handleLike}
+          className="flex items-center gap-2 text-gray-600 hover:text-red-600 transition-colors font-medium"
+        >
+          {isLiked ? <FaHeart className="text-red-600" /> : <FaRegHeart />}
+          <span>Like</span>
+        </button>
+        
+        <button 
+          onClick={() => setIsCommenting(true)}
+          className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors font-medium"
+        >
+          <FaComment />
+          <span>Comment</span>
+        </button>
+        
+        <button className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors font-medium">
+          <FaRetweet />
+          <span>Repost</span>
+        </button>
+        
+        <button className="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition-colors font-medium">
+          <FaShare />
+          <span>Share</span>
+        </button>
+      </div>
+
+      {/* Comment Modal */}
+      {isCommenting && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl h-[90vh] flex">
+            {/* Left Side: Post Media */}
+            <div className="flex-1 bg-gray-100 p-4 flex items-center justify-center">
+              {normalizedMedia.length > 0 && (
+                <div className="grid grid-cols-1 gap-2">
+                  {normalizedMedia.map((media, index) => (
+                    media.type === "image" ? (
+                      <img 
+                        key={index}
+                        src={media.url} 
+                        alt={`Post content ${index + 1}`} 
+                        className="w-full h-full object-contain max-h-[80vh]"
+                      />
+                    ) : media.type === "video" ? (
+                      <video 
+                        key={index}
+                        controls 
+                        className="w-full h-full object-contain max-h-[80vh]"
+                      >
+                        <source src={media.url} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    ) : null
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Right Side: Comments Section */}
+            <div className="flex-1 p-4 flex flex-col">
+              {/* Header */}
+              <div className="flex justify-between items-center border-b pb-3">
+                <div className="flex items-center">
+                  <img 
+                    src={avatar} 
+                    alt="Profile"
+                    className="w-8 h-8 rounded-full object-cover mr-2 border-2 border-blue-300"
+                  />
+                  <div>
+                    <h3 className="font-bold text-gray-900 text-sm">{username}</h3>
+                    <p className="text-xs text-gray-400">{timestamp}</p>
+                  </div>
+                </div>
+                <button onClick={() => setIsCommenting(false)}>
+                  <FaTimes className="text-gray-600 hover:text-gray-800" />
+                </button>
+              </div>
+
+              {/* Caption */}
+              {caption && (
+                <div className="border-b py-3">
+                  <p className="text-sm text-gray-700">{caption}</p>
+                </div>
+              )}
+
+              {/* Comments List */}
+              <div className="flex-1 overflow-y-auto py-3">
+                {commentList.map((comment, index) => (
+                  <div key={index} className="text-sm text-gray-700 py-2 border-b">
+                    <span className="font-semibold">{comment.username}</span> {comment.text}
+                  </div>
+                ))}
+              </div>
+
+              {/* Comment Input */}
+              <div className="border-t pt-3">
+                <textarea 
+                  value={commentText}
+                  onChange={(e) => setCommentText(e.target.value)}
+                  className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Add a comment..."
+                  rows="2"
+                ></textarea>
+                <button 
+                  onClick={handleCommentSubmit}
+                  className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition w-full"
+                >
+                  Post
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Post;

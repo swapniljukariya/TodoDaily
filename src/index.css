@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  /* Add this to your global styles (tailwind.css) for smooth scrolling and animation */
+.reel-card {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .reel-card.visible {
+    transform: scale(1.02); /* Slight zoom effect */
+    opacity: 1;
+  }
+  
+  .reel-card:not(.visible) {
+    opacity: 0.5;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }

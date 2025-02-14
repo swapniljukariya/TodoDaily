@@ -1,19 +1,15 @@
+// src/Components/Layout.js
 import React from "react";
-import { Outlet } from "react-router-dom";
-import Header from "./Header";
-import Footer from "./Footer";
+import Sidebar from "./Sidebar"; // Import Sidebar
 
-const Layout = () => {
+const Layout = ({ children }) => {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Header */}
-      <Header />
-      {/* Main content */}
-      <main className="flex-grow">
-        <Outlet /> {/* Renders child routes */}
-      </main>
-      {/* Footer */}
-      <Footer />
+    <div className="flex h-screen">
+      {/* Sidebar (Static) */}
+      <Sidebar />
+
+      {/* Main Content Area (Changes with Route) */}
+      <div className="flex-1 overflow-y-auto p-4">{children}</div>
     </div>
   );
 };

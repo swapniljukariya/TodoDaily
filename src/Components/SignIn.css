@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+.signin-container {
+  @apply flex h-screen items-center justify-center bg-gray-100;
+}
+
+.signin-box {
+  @apply bg-white p-6 rounded-lg shadow-lg w-96;
+}
+
+.signin-title {
+  @apply text-2xl font-semibold text-center mb-4;
+}
+
+.signin-error {
+  @apply text-red-500 text-center;
+}
+
+.signin-input {
+  @apply border p-2 rounded-md w-full;
+}
+
+.signin-button {
+  @apply bg-blue-500 text-white py-2 rounded-md w-full hover:bg-blue-600;
+}

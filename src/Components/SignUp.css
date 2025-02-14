@@ -1,0 +1,109 @@
+/* Background styling */
+.signin-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #ff4d4d, #8b0000);
+}
+
+/* Glassmorphism Box */
+.signin-box {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
+    text-align: center;
+    width: 350px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Title */
+.signin-title {
+    font-size: 26px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+/* Error message */
+.signin-error {
+    color: #ff1a1a;
+    font-size: 14px;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+/* Form styling */
+.signin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Input Fields */
+.signin-input {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.signin-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.signin-input:focus {
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+/* Button */
+.signin-button {
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #d32f2f;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
+}
+
+.signin-button:hover {
+    background: #b71c1c;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5);
+}
+
+.signin-button:disabled {
+    background: #ff6666;
+    cursor: not-allowed;
+}
+
+/* Footer */
+.signin-footer {
+    margin-top: 1rem;
+    font-size: 14px;
+    color: white;
+}
+
+/* Sign Up Link */
+.signin-link {
+    color: #ffcccc;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signin-link:hover {
+    text-decoration: underline;
+    color: white;
+}
