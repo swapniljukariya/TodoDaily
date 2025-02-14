@@ -13,7 +13,7 @@ const RightSidebar = () => {
   };
 
   return (
-    <div className="w-[350px] fixed right-0 top-0 h-full hidden bg-white lg:block p-6">
+    <div className="w-[200px] fixed right-0 top-0 h-screen hidden bg-white lg:block p-6">
       {/* Current User Profile */}
       {user && (
         <div className="flex items-center justify-between mb-6">
@@ -23,7 +23,7 @@ const RightSidebar = () => {
           >
             <img
               src={user.avatar || "https://via.placeholder.com/150"}
-              className="w-14 h-14 rounded-full border"
+              className="w-8 h-8 rounded-full border"
               alt="Profile"
             />
             <div>
@@ -51,7 +51,7 @@ const RightSidebar = () => {
               >
                 <img
                   src={suggestedUser.avatar || "https://via.placeholder.com/150"}
-                  className="w-16 h-16 rounded-full border"
+                  className="w-8 h-8 rounded-full border"
                   alt={suggestedUser.username}
                 />
                 <div>
