@@ -12,23 +12,55 @@ const Stories = () => {
   const [myStories, setMyStories] = useState([]);
   const fileInputRef = useRef(null);
 
-  // ✅ Handle File Upload
+  // Handle File Upload and call backend API
   const handleFileUpload = async (e) => {
-    console.log("Upload triggered"); // Debugging log
+    console.log("Upload triggered");
     const file = e.target.files[0];
     if (!file) return;
 
+    // Create a story object
     const newStory = {
       type: file.type.startsWith("video") ? "video" : "image",
       mediaUrl: URL.createObjectURL(file),
       createdAt: new Date().toISOString(),
     };
 
+    // Update the UI immediately
     setMyStories((prev) => [newStory, ...prev]);
+
+    // Prepare the payload (backend expects an array of stories)
+    const payload = {
+      stories: [newStory],
+    };
+
+    try {
+      // Get the auth token if available (adjust based on your auth implementation)
+      const token = localStorage.getItem("token");
+
+      const response = await fetch("http://localhost:8001/stories/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error uploading story:", errorData);
+      } else {
+        const data = await response.json();
+        console.log("Story uploaded successfully:", data);
+      }
+    } catch (error) {
+      console.error("Error uploading story:", error);
+    }
+
     e.target.value = null; // Reset file input
   };
 
-  // ✅ Render "Your Story" section
+  // Render "Your Story" section
   const renderYourStory = () => (
     <div className="flex-shrink-0 cursor-pointer">
       <div
@@ -71,7 +103,7 @@ const Stories = () => {
     </div>
   );
 
-  // ✅ Handle Story Click
+  // Handle Story Click
   const handleStoryClick = (user) => {
     setActiveStory(user);
     setCurrentStoryIndex(0);
@@ -135,7 +167,8 @@ const Stories = () => {
                       index <= currentStoryIndex ? "bg-white" : "bg-gray-500"
                     }`}
                     style={{
-                      width: index === currentStoryIndex ? `${progress}%` : "100%",
+                      width:
+                        index === currentStoryIndex ? `${progress}%` : "100%",
                     }}
                   ></div>
                 </div>

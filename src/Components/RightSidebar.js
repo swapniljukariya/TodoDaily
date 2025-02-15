@@ -1,26 +1,20 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { users } from "../DummyData/UserDummyData";
 import AuthContext from "../context/AuthContext";
+import { users } from "../DummyData/UserDummyData";
 
 const RightSidebar = () => {
   const { user } = useContext(AuthContext);
 
-  // Function to generate the profile path
-  const getDummyProfilePath = (username) => {
-    const profile = users.find((u) => u.username === username);
-    return profile ? `/dummy-profile/${profile._id}` : "#";
-  };
+  // Function to generate the actual profile path
+  const getProfilePath = (id) => `/profile/${id}`;
 
   return (
     <div className="w-84 fixed right-0 top-0 h-screen hidden bg-white lg:block p-6">
       {/* Current User Profile */}
       {user && (
         <div className="flex items-center justify-between mb-6">
-          <NavLink
-            to={getDummyProfilePath(user.username)}
-            className="flex items-center gap-4"
-          >
+          <NavLink to={getProfilePath(user._id)} className="flex items-center gap-4">
             <img
               src={user.avatar || "https://via.placeholder.com/150"}
               className="w-8 h-8 rounded-full border"
@@ -45,10 +39,7 @@ const RightSidebar = () => {
         <div className="space-y-4">
           {users.map((suggestedUser) => (
             <div key={suggestedUser._id} className="flex items-center justify-between">
-              <NavLink
-                to={getDummyProfilePath(suggestedUser.username)}
-                className="flex items-center gap-4"
-              >
+              <NavLink to={getProfilePath(suggestedUser._id)} className="flex items-center gap-4">
                 <img
                   src={suggestedUser.avatar || "https://via.placeholder.com/150"}
                   className="w-8 h-8 rounded-full border"
@@ -59,7 +50,7 @@ const RightSidebar = () => {
                   <p className="text-gray-500 text-xs">{suggestedUser.name}</p>
                 </div>
               </NavLink>
-              <button className="text-red-500  rounded-2xl  font-semibold  p-2 text-sm ">Follow</button>
+              <button className="text-red-500 rounded-2xl font-semibold p-2 text-sm">Follow</button>
             </div>
           ))}
         </div>
@@ -67,7 +58,7 @@ const RightSidebar = () => {
 
       {/* Footer Links */}
       <div className="absolute bottom-4 left-6 right-6 text-gray-500 text-xs text-center space-y-2">
-        {/* ... (existing footer links) */}
+        {/* Additional footer links */}
       </div>
     </div>
   );

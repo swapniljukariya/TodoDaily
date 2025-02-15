@@ -1,41 +1,66 @@
 import React, { useState } from 'react';
-import { FaHeart, FaRegHeart, FaComment, FaRetweet, FaShare, FaTimes, FaExpand } from 'react-icons/fa';
+import { FaHeart, FaRegHeart, FaComment, FaRetweet, FaShare, FaTimes, FaExpand, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
 
 const Post = ({ 
-  username = "Cultural Chronicler",
-  handle = "@CultChronFeb5",
-  timestamp = "2h ago",
+  _id, // Destructure _id
+  username,
+  handle,
+  timestamp,
   caption,
   mediaUrl = [],
   mediaType = "",
-  likes = 0, // Default to 0
-  comments = [], // Default to empty array
-  shares = 0, // Default to 0
-  avatar = "https://pbs.twimg.com/media/CMNBLY3XAAA3lMt.png"
+  likes = [],
+  comments = [],
+  shares = 0,
+  avatar,
+  onLike, // Destructure onLike
+  onComment,
 }) => {
-  const [isFollowing, setIsFollowing] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(likes);
+  const { user } = useAuth();
+  const [isFollowing, setIsFollowing] = useState(false); // Add follow state
+  const [isLiked, setIsLiked] = useState(likes.includes(user?._id));
+  const [likeCount, setLikeCount] = useState(likes.length);
   const [isCommenting, setIsCommenting] = useState(false);
   const [commentText, setCommentText] = useState("");
-  const [commentList, setCommentList] = useState(comments); // Initialize with comments array
+  const [commentList, setCommentList] = useState(comments);
   const [selectedMedia, setSelectedMedia] = useState(null);
+  const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
+
 
   const handleLike = () => {
+    if (!user) {
+      alert("Please log in to like this post.");
+      return;
+    }
+
+    const newLikes = isLiked
+      ? likes.filter((userId) => userId !== user._id) // Unlike
+      : [...likes, user._id]; // Like
+
     setIsLiked(!isLiked);
-    setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
+    setLikeCount(newLikes.length);
+    onLike(_id, newLikes); // Notify parent component
   };
 
   const handleCommentSubmit = () => {
+    if (!user) {
+      alert("Please log in to comment on this post.");
+      return;
+    }
+
     if (commentText.trim()) {
       const newComment = {
-        userId: "currentUserId", // Replace with actual current user ID
-        username: "CurrentUser", // Replace with actual current username
+        userId: user._id, // Use the current user's ID
+        username: user.username, // Use the current user's username
         text: commentText,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
       };
-      setCommentList([...commentList, newComment]);
+
+      const updatedComments = [...comments, newComment];
+      setCommentList(updatedComments);
       setCommentText("");
+      onComment(_id, updatedComments); // Notify parent component
     }
   };
 
@@ -51,6 +76,14 @@ const Post = ({
     if (count === 3) return "grid-cols-2 grid-rows-2";
     if (count >= 4) return "grid-cols-2";
     return "grid-cols-1";
+  };
+
+  const handleNextMedia = () => {
+    setCurrentMediaIndex((prevIndex) => (prevIndex + 1) % normalizedMedia.length);
+  };
+
+  const handlePrevMedia = () => {
+    setCurrentMediaIndex((prevIndex) => (prevIndex - 1 + normalizedMedia.length) % normalizedMedia.length);
   };
 
   return (
@@ -195,30 +228,42 @@ const Post = ({
       {isCommenting && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl h-[90vh] flex">
-            {/* Left Side: Post Media */}
-            <div className="flex-1 bg-gray-100 p-4 flex items-center justify-center">
+            {/* Left Side: Post Media Carousel */}
+            <div className="flex-1 bg-gray-100 p-4 flex items-center justify-center relative">
               {normalizedMedia.length > 0 && (
-                <div className="grid grid-cols-1 gap-2">
-                  {normalizedMedia.map((media, index) => (
-                    media.type === "image" ? (
+                <>
+                  <button
+                    onClick={handlePrevMedia}
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
+                  >
+                    <FaChevronLeft />
+                  </button>
+                  <div className="w-full h-full flex items-center justify-center">
+                    {normalizedMedia[currentMediaIndex].type === "image" ? (
                       <img 
-                        key={index}
-                        src={media.url} 
-                        alt={`Post content ${index + 1}`} 
+                        src={normalizedMedia[currentMediaIndex].url} 
+                        alt={`Post content ${currentMediaIndex + 1}`} 
                         className="w-full h-full object-contain max-h-[80vh]"
                       />
-                    ) : media.type === "video" ? (
+                    ) : (
                       <video 
-                        key={index}
+                        key={currentMediaIndex} // Force re-render by changing the key
                         controls 
                         className="w-full h-full object-contain max-h-[80vh]"
+                        autoPlay
                       >
-                        <source src={media.url} type="video/mp4" />
+                        <source src={normalizedMedia[currentMediaIndex].url} type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
-                    ) : null
-                  ))}
-                </div>
+                    )}
+                  </div>
+                  <button
+                    onClick={handleNextMedia}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
+                  >
+                    <FaChevronRight />
+                  </button>
+                </>
               )}
             </div>
 

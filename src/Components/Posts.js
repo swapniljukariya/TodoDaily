@@ -14,9 +14,9 @@ const Posts = () => {
           caption={post.text}
           mediaUrl={post.mediaUrl}
           mediaType={post.mediaType}
-          likes={post.likes.length} // Pass the number of likes
-          comments={post.comments} // Pass the comments array directly
-          shares={post.shares || 0} // Add shares if needed
+          likes={post.likes} // Pass the array of user IDs, not the length
+          comments={post.comments}
+          shares={post.shares || 0}
           avatar={post.avatar}
         />
       ))}
