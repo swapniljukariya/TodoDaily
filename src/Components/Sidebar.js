@@ -111,23 +111,28 @@ const Sidebar = () => {
         </nav>
 
         {/* User Profile Section */}
-        <div className="mt-auto pt-4 border-t border-gray-200">
-          {user ? (
-            <div className="flex items-center gap-3">
-              <img
-                src={user.profilePic || "https://via.placeholder.com/150"}
-                className="w-8 h-8 rounded-full object-cover"
-                alt="Profile"
-              />
-              <div>
-                <p className="font-semibold text-sm">{user.name || "User"}</p>
-                <p className="text-gray-600 text-xs">@{user.username || "username"}</p>
-              </div>
-            </div>
-          ) : (
-            <p className="text-gray-400 text-sm">Please log in</p>
-          )}
-        </div>
+        {/* User Profile Section */}
+<div className="mt-auto pt-4 border-t border-gray-200">
+  {user ? (
+    <NavLink
+      to="/profile"
+      className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
+    >
+      <img
+        src={user.profilePic || "https://via.placeholder.com/150"}
+        className="w-8 h-8 rounded-full object-cover"
+        alt="Profile"
+      />
+      <div>
+        <p className="font-semibold text-sm">{user.name || "User"}</p>
+        <p className="text-gray-600 text-xs">@{user.username || "username"}</p>
+      </div>
+    </NavLink>
+  ) : (
+    <p className="text-gray-400 text-sm">Please log in</p>
+  )}
+</div>
+
       </div>
 
       {/* Search Popup - Stays on Top */}
