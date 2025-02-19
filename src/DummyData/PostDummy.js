@@ -1,6 +1,6 @@
  export const posts = [
     {
-        _id: "67c1a9f31eec8d802e746704",
+        _id: "67c1a9f31eec8d802e7467001",
         userId: "67a26cf31eec8d802e746609",
         username: "travel_explorer",
         avatar: "https://cdn-icons-png.flaticon.com/512/4140/4140037.png",

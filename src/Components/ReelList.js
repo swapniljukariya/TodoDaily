@@ -6,7 +6,7 @@ const ReelList = () => {
   return (
     <div className="h-screen w-full flex flex-col items-center overflow-y-auto snap-y snap-mandatory scrollbar-hide">
       {reels.map((reel) => (
-        <div key={reel._id} className="w-full flex justify-center snap-start">
+        <div key={reel._id} className="w-[550px] flex justify-center snap-start">
           <ReelCard reel={reel} />
         </div>
       ))}

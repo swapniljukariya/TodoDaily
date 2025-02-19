@@ -2,35 +2,66 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { users } from "../DummyData/UserDummyData";
 import { posts } from "../DummyData/PostDummy";
-import { reels } from "../DummyData/ReelData"; // Import reels data
-import Post from "../Components/Post";
-import ReelCard from "../Components/ReelCard"; // Import ReelCard component
+import { reels } from "../DummyData/ReelData";
+import Post from "../Components/Post"; // Your existing Post component
+import ReelCard from "../Components/ReelCard";
 
 const DummyProfile = () => {
   const { userId } = useParams();
   const [user, setUser] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
-  const [userReels, setUserReels] = useState([]); // State for reels
+  const [userReels, setUserReels] = useState([]);
   const [activeTab, setActiveTab] = useState("posts");
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    username: "",
+    bio: "",
+    avatar: ""
+  });
 
+  // Initialize form data and fetch content
   useEffect(() => {
-    console.log("Current userId from URL:", userId); // Debug: Check the userId from URL
-
-    // Find the user
+    // Find user
     const foundUser = users.find((u) => u._id === userId);
-    console.log("Found User:", foundUser); // Debug: Check the found user
     setUser(foundUser || null);
+
+    // Set form data if user is found
+    if (foundUser) {
+      setFormData({
+        name: foundUser.name,
+        username: foundUser.username,
+        bio: foundUser.bio,
+        avatar: foundUser.avatar
+      });
+    }
 
     // Filter posts for the user
     const filteredPosts = posts.filter((post) => post.userId === userId);
-    console.log("Filtered Posts:", filteredPosts); // Debug: Check filtered posts
     setUserPosts(filteredPosts);
 
     // Filter reels for the user
     const filteredReels = reels.filter((reel) => reel.userId === userId);
-    console.log("Filtered Reels:", filteredReels); // Debug: Check filtered reels
     setUserReels(filteredReels);
   }, [userId]);
+
+  const handleEditToggle = () => setIsEditing(!isEditing);
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSaveProfile = () => {
+    // Update user data (for dummy data, we just update the state)
+    setUser((prevUser) => ({
+      ...prevUser,
+      ...formData
+    }));
+    setIsEditing(false);
+  };
 
   if (!user) return <div className="text-center mt-10">User not found...</div>;
 
@@ -43,34 +74,82 @@ const DummyProfile = () => {
           alt="Profile"
           className="w-32 h-32 rounded-full object-cover"
         />
-        <div>
-          <h1 className="text-2xl font-bold">{user.name}</h1>
-          <p className="text-gray-600">@{user.username}</p>
-          <p className="mt-2 text-gray-800">{user.bio}</p>
-          <div className="mt-4 flex gap-4 text-gray-600">
-            <span>{user.followers?.length || 0} followers</span>
-            <span>{user.following?.length || 0} following</span>
-          </div>
+        
+        <div className="flex-1">
+          {isEditing ? (
+            <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+              <input
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
+                placeholder="Full Name"
+              />
+              <input
+                name="username"
+                value={formData.username}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
+                placeholder="Username"
+              />
+              <textarea
+                name="bio"
+                value={formData.bio}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
+                placeholder="Bio"
+                rows="3"
+              />
+              <input
+                name="avatar"
+                value={formData.avatar}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
+                placeholder="Avatar URL"
+              />
+              
+              <div className="flex gap-2 mt-4">
+                <button
+                  type="button"
+                  onClick={handleSaveProfile}
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                  Save Changes
+                </button>
+                <button
+                  type="button"
+                  onClick={handleEditToggle}
+                  className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          ) : (
+            <>
+              <h1 className="text-2xl font-bold">{user.name}</h1>
+              <p className="text-gray-600">@{user.username}</p>
+              <p className="mt-2 text-gray-800">{user.bio}</p>
+              
+              <div className="mt-4 flex gap-4">
+                <span className="text-gray-600">
+                  {user.followers?.length || 0} followers
+                </span>
+                <span className="text-gray-600">
+                  {user.following?.length || 0} following
+                </span>
+              </div>
+              
+              <button
+                onClick={handleEditToggle}
+                className="mt-4 px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200"
+              >
+                Edit Profile
+              </button>
+            </>
+          )}
         </div>
       </div>
-
-      {/* Stories Section */}
-      {user.stories && user.stories.length > 0 && (
-        <div className="mb-4">
-          <h2 className="text-lg font-semibold mb-2">Stories</h2>
-          <div className="flex gap-2">
-            {user.stories.map((story) => (
-              <div key={story._id} className="relative">
-                <img
-                  src={story.mediaUrl}
-                  alt={story.text}
-                  className="w-20 h-20 rounded-full object-cover border-2 border-blue-500"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Content Tabs */}
       <div className="flex justify-around border-b border-gray-300 mb-4">
@@ -88,7 +167,7 @@ const DummyProfile = () => {
             activeTab === "reels" ? "border-b-2 border-blue-600" : "text-gray-600"
           }`}
         >
-          Reels ({userReels.length}) {/* Display the number of reels */}
+          Reels ({userReels.length})
         </button>
         <button
           onClick={() => setActiveTab("media")}
@@ -96,52 +175,80 @@ const DummyProfile = () => {
             activeTab === "media" ? "border-b-2 border-blue-600" : "text-gray-600"
           }`}
         >
-          Media (0)
+          Media ({userPosts.length + userReels.length})
         </button>
       </div>
 
       {/* Posts Section */}
       {activeTab === "posts" && (
-        <div>
+        <div className="space-y-6">
           {userPosts.length > 0 ? (
             userPosts.map((post) => (
               <Post
                 key={post._id}
+                _id={post._id}
                 username={post.username}
                 handle={`@${post.username}`}
                 timestamp={new Date(post.createdAt).toLocaleTimeString()}
                 caption={post.text}
                 mediaUrl={post.mediaUrl}
                 mediaType={post.mediaType}
-                likes={post.likes.length}
-                comments={post.comments.length}
+                likes={post.likes}
+                comments={post.comments}
                 shares={0} // Add shares if available in the data
+                avatar={post.avatar}
+                onLike={(postId, newLikes) => {
+                  // Handle like logic (update state or API call)
+                  console.log("Liked post:", postId, "New likes:", newLikes);
+                }}
+                onComment={(postId, newComments) => {
+                  // Handle comment logic (update state or API call)
+                  console.log("Commented on post:", postId, "New comments:", newComments);
+                }}
               />
             ))
           ) : (
-            <p>No posts available</p>
+            <p className="text-center text-gray-500">No posts available</p>
           )}
         </div>
       )}
 
       {/* Reels Section */}
       {activeTab === "reels" && (
-        <div className="h-screen w-full flex flex-col items-center overflow-y-auto snap-y snap-mandatory scrollbar-hide">
+        <div className="space-y-6">
           {userReels.length > 0 ? (
             userReels.map((reel) => (
-              <div key={reel._id} className="w-full flex justify-center snap-start">
-                <ReelCard reel={reel} />
-              </div>
+              <ReelCard key={reel._id} reel={reel} />
             ))
           ) : (
-            <p>No reels available</p>
+            <p className="text-center text-gray-500">No reels available</p>
           )}
         </div>
       )}
 
-      {/* Empty Content for Other Tabs */}
-      {activeTab !== "posts" && activeTab !== "reels" && (
-        <div className="text-center text-gray-500">No content available.</div>
+      {/* Media Section */}
+      {activeTab === "media" && (
+        <div className="grid grid-cols-3 gap-8">
+          {userPosts.map((post) => (
+            post.mediaUrl.map((media, index) => (
+              <div key={`${post._id}-${index}`} className="relative">
+                {media.type === "image" ? (
+                  <img
+                    src={media.url}
+                    alt={`Post ${post._id} media ${index}`}
+                    className="w-96  h-96 object-cover rounded-lg"
+                  />
+                ) : (
+                  <video
+                    src={media.url}
+                    className="w-96 h-96 object-cover rounded-lg"
+                    controls
+                  />
+                )}
+              </div>
+            ))
+          ))}
+        </div>
       )}
     </div>
   );

@@ -3,9 +3,6 @@ import Picker from "@emoji-mart/react";
 import { Camera, Smile, Image, Video, Send } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
-
-
-
 const CreatePost = () => {
   // State to hold post text, media files, and UI flags
   const [mediaFiles, setMediaFiles] = useState([]);
@@ -14,7 +11,7 @@ const CreatePost = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [cameraOpen, setCameraOpen] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const { user } = useAuth() 
+  const { user } = useAuth();
 
   // Refs for video, media stream, recorder, and recorded chunks
   const videoRef = useRef(null);
@@ -155,7 +152,7 @@ const CreatePost = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8001/api/posts", {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/posts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
