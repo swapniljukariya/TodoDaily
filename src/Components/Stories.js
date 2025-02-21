@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
-import { users } from "../DummyData/UserDummyData";
+import React, { useState, useRef, useEffect } from "react";
 import { FaArrowLeft, FaArrowRight, FaTimes, FaPlus } from "react-icons/fa";
+import { users } from "../DummyData/UserDummyData"; // Import dummy data
 
 const Stories = () => {
   const [activeStory, setActiveStory] = useState(null);
@@ -14,11 +14,10 @@ const Stories = () => {
 
   // Handle File Upload and call backend API
   const handleFileUpload = async (e) => {
-    console.log("Upload triggered");
     const file = e.target.files[0];
     if (!file) return;
 
-    // Create a story object
+    // Create a temporary story object for UI
     const newStory = {
       type: file.type.startsWith("video") ? "video" : "image",
       mediaUrl: URL.createObjectURL(file),
@@ -28,16 +27,19 @@ const Stories = () => {
     // Update the UI immediately
     setMyStories((prev) => [newStory, ...prev]);
 
-    // Prepare the payload (backend expects an array of stories)
+    // Prepare the payload for backend
     const payload = {
-      stories: [newStory],
+      stories: [{
+        type: newStory.type,
+        mediaUrl: newStory.mediaUrl,
+        createdAt: newStory.createdAt,
+      }],
     };
 
     try {
-      // Get the auth token if available (adjust based on your auth implementation)
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:8001/stories/add", {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/stories/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -130,10 +132,29 @@ const Stories = () => {
     }
   };
 
+  // Auto-play stories
+  useEffect(() => {
+    if (!activeStory) return;
+
+    const storyDuration = 5000; // 5 seconds per story
+    const progressInterval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          handleNextStory();
+          return 0;
+        }
+        return prev + 1;
+      });
+    }, storyDuration / 100);
+
+    return () => clearInterval(progressInterval);
+  }, [activeStory, currentStoryIndex]);
+
   return (
     <div className="relative mb-1">
       <div className="flex space-x-6 px-6 py-4 bg-white overflow-x-auto scrollbar-hide max-w-5xl mx-auto">
         {renderYourStory()}
+        {/* Render other users' stories */}
         {users.map((user) => (
           <div key={user._id} className="flex-shrink-0 cursor-pointer">
             <div
