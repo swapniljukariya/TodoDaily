@@ -21,8 +21,8 @@ const Home = () => {
 
       {/* Main Content */}
       <div className="flex-1 lg:ml-64 lg:mr-80 overflow-y-auto">
-        {/* Constrain width for small devices */}
-        <div className="w-full max-w-full lg:max-w-4xl mx-auto px-4 sm:px-6 py-6">
+        {/* Remove max-w-4xl constraint for small devices */}
+        <div className="w-full mx-auto px-4 sm:px-6 py-6">
           {/* Stories Section */}
           <div className="w-full">
             <Stories />

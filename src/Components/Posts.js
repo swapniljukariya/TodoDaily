@@ -5,8 +5,8 @@ import posts from "../DummyData/PostDummy";
 const Posts = () => {
   return (
     <div className="w-full p-4 sm:p-6">
-      {/* Constrain width for small devices */}
-      <div className="max-w-full mx-auto w-full sm:w-11/12 md:w-10/12 lg:w-full space-y-6">
+      {/* Remove max-w-full constraint for small devices */}
+      <div className="w-full space-y-6">
         {posts.map((post) => (
           <Post
             key={post._id}
