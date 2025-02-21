@@ -2,7 +2,7 @@
 import React, { useContext } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import AuthContext from "./context/AuthContext";
-import './index.css'
+import './index.css';
 
 // Import Components
 import SignUp from "./Components/SignUp";
@@ -18,6 +18,7 @@ import CreatePost from "./Components/CreatePost";
 import Message from "./Components/Message";
 import ChatApp from "./Components/ChatApp";
 import SearchBar from "./Components/SearchBar";
+// Import Mobile Navigation Component
 
 const App = () => {
   const { user, logout } = useContext(AuthContext);
@@ -25,11 +26,17 @@ const App = () => {
   return (
     <Router>
       <div className="flex">
-        {/* Sidebar */}
-        {user && <Sidebar />}
+        {/* Sidebar for large screens */}
+        {user && (
+          <div className="hidden lg:block">
+            <Sidebar />
+          </div>
+        )}
 
+        {/* Mobile Navigation for small screens */}
+        
         {/* Main Content */}
-        <div className={`flex-1 ${user ? "ml-64" : ""}`}>
+        <div className="flex-1">
           <Routes>
             {/* Home Route */}
             <Route path="/" element={user ? <Home /> : <Navigate to="/signin" />} />
