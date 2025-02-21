@@ -6,7 +6,7 @@ const Posts = () => {
   return (
     <div className="sm:w-[800px] lg:w-full p-4  ">
       {/* Remove max-w-full constraint for small devices */}
-      <div className="w-full space-y-6">
+      <div className="w-full space-y-6 ">
         {posts.map((post) => (
           <Post
             key={post._id}

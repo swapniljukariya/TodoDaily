@@ -86,7 +86,7 @@ const Post = ({
   };
 
   return (
-    <div className="bg-white p-4 sm:p-5 rounded-xl mb-6 max-w-2xl mx-auto">
+    <div className="bg-white p-4 sm:p-5 rounded-xl mb-6 max-w-3xl mx-auto">
       {/* Header Section */}
       <div className="flex justify-between items-center mb-3 sm:mb-4">
         <div className="flex items-center">
@@ -96,7 +96,7 @@ const Post = ({
             className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover mr-2 sm:mr-3 border-2 border-blue-300"
           />
           <div>
-            <div className="flex items-center gap-1 sm:gap-2">
+            <div className="flex items-center gap-8 sm:gap-8">
               <h3 className="font-bold text-gray-900 text-base sm:text-lg">{username}</h3>
               <p className="text-xs sm:text-sm text-gray-400">{handle}</p>
             </div>
