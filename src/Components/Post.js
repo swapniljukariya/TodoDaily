@@ -27,7 +27,6 @@ const Post = ({
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
 
-
   const handleLike = () => {
     if (!user) {
       alert("Please log in to like this post.");
@@ -69,14 +68,6 @@ const Post = ({
     : mediaUrl 
       ? [{ url: mediaUrl, type: mediaType }] 
       : [];
-
-  const getGridClasses = (count) => {
-    if (count === 1) return "grid-cols-1";
-    if (count === 2) return "grid-cols-2";
-    if (count === 3) return "grid-cols-2 grid-rows-2";
-    if (count >= 4) return "grid-cols-2";
-    return "grid-cols-1";
-  };
 
   const handleNextMedia = () => {
     setCurrentMediaIndex((prevIndex) => (prevIndex + 1) % normalizedMedia.length);
@@ -122,15 +113,11 @@ const Post = ({
       {/* Media (Images or Videos) */}
       {normalizedMedia.length > 0 && (
         <div className="mb-4 rounded-xl overflow-hidden border border-gray-300 shadow-sm">
-          <div className={`grid gap-0.5 ${getGridClasses(normalizedMedia.length)}`}>
+          <div className="flex overflow-x-auto scrollbar-hide">
             {normalizedMedia.map((media, index) => (
               <div
                 key={index}
-                className={`
-                  relative group cursor-pointer
-                  ${normalizedMedia.length === 3 && index === 0 ? 'row-span-2' : ''}
-                  aspect-square
-                `}
+                className="flex-shrink-0 w-full"
                 onClick={() => setSelectedMedia(media)}
               >
                 {media.type === "image" ? (
