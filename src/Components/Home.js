@@ -29,7 +29,7 @@ const Home = () => {
           </div>
 
           {/* Posts Section */}
-          <div className="w-[100vw] mt-4 ">
+          <div className="w-[100vw] lg:w-[calc(100vw-30rem)] mt-4 overflow-x-hidden">
             <Posts posts={posts} />
           </div>
         </div>

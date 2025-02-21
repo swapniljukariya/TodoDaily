@@ -27,7 +27,6 @@ const Post = ({
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
 
-
   const handleLike = () => {
     if (!user) {
       alert("Please log in to like this post.");
@@ -87,26 +86,26 @@ const Post = ({
   };
 
   return (
-    <div className="bg-white p-5 rounded-xl mb-6 max-w-2xl mx-auto">
+    <div className="bg-white p-4 sm:p-5 rounded-xl mb-6 max-w-2xl mx-auto">
       {/* Header Section */}
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-3 sm:mb-4">
         <div className="flex items-center">
           <img 
             src={avatar} 
             alt="Profile"
-            className="w-12 h-12 rounded-full object-cover mr-3 border-2 border-blue-300"
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover mr-2 sm:mr-3 border-2 border-blue-300"
           />
           <div>
-            <div className="flex items-center gap-2">
-              <h3 className="font-bold text-gray-900 text-lg">{username}</h3>
-              <p className="text-sm text-gray-400">{handle}</p>
+            <div className="flex items-center gap-1 sm:gap-2">
+              <h3 className="font-bold text-gray-900 text-base sm:text-lg">{username}</h3>
+              <p className="text-xs sm:text-sm text-gray-400">{handle}</p>
             </div>
-            <p className="text-sm text-gray-400">{timestamp}</p>
+            <p className="text-xs sm:text-sm text-gray-400">{timestamp}</p>
           </div>
         </div>
         <button
           onClick={() => setIsFollowing(!isFollowing)}
-          className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all shadow-md ${
+          className={`px-4 py-1 sm:px-5 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all shadow-md ${
             isFollowing 
               ? 'bg-gray-200 text-gray-700 hover:bg-gray-300' 
               : 'bg-red-600 text-white hover:bg-red-700'
@@ -117,11 +116,11 @@ const Post = ({
       </div>
 
       {/* Caption */}
-      {caption && <p className="text-gray-900 mb-4 text-base leading-relaxed">{caption}</p>}
+      {caption && <p className="text-gray-900 mb-3 sm:mb-4 text-sm sm:text-base leading-relaxed">{caption}</p>}
 
       {/* Media (Images or Videos) */}
       {normalizedMedia.length > 0 && (
-        <div className="mb-4 rounded-xl overflow-hidden border border-gray-300 shadow-sm">
+        <div className="mb-3 sm:mb-4 rounded-xl overflow-hidden border border-gray-300 shadow-sm">
           <div className={`grid gap-0.5 ${getGridClasses(normalizedMedia.length)}`}>
             {normalizedMedia.map((media, index) => (
               <div
@@ -189,17 +188,17 @@ const Post = ({
       )}
 
       {/* Stats */}
-      <div className="flex items-center text-gray-500 text-sm mb-4">
-        <span className="mr-5">{commentList.length.toLocaleString()} replies</span>
-        <span className="mr-5">{shares.toLocaleString()} reposts</span>
+      <div className="flex items-center text-gray-500 text-xs sm:text-sm mb-3 sm:mb-4">
+        <span className="mr-4 sm:mr-5">{commentList.length.toLocaleString()} replies</span>
+        <span className="mr-4 sm:mr-5">{shares.toLocaleString()} reposts</span>
         <span>{likeCount.toLocaleString()} likes</span>
       </div>
 
       {/* Interaction Buttons */}
-      <div className="flex justify-between border-t border-gray-300 pt-3">
+      <div className="flex justify-between border-t border-gray-300 pt-2 sm:pt-3">
         <button 
           onClick={handleLike}
-          className="flex items-center gap-2 text-gray-600 hover:text-red-600 transition-colors font-medium"
+          className="flex items-center gap-1 sm:gap-2 text-gray-600 hover:text-red-600 transition-colors font-medium text-xs sm:text-sm"
         >
           {isLiked ? <FaHeart className="text-red-600" /> : <FaRegHeart />}
           <span>Like</span>
@@ -207,18 +206,18 @@ const Post = ({
         
         <button 
           onClick={() => setIsCommenting(true)}
-          className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors font-medium"
+          className="flex items-center gap-1 sm:gap-2 text-gray-600 hover:text-blue-600 transition-colors font-medium text-xs sm:text-sm"
         >
           <FaComment />
           <span>Comment</span>
         </button>
         
-        <button className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors font-medium">
+        <button className="flex items-center gap-1 sm:gap-2 text-gray-600 hover:text-green-600 transition-colors font-medium text-xs sm:text-sm">
           <FaRetweet />
           <span>Repost</span>
         </button>
         
-        <button className="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition-colors font-medium">
+        <button className="flex items-center gap-1 sm:gap-2 text-gray-600 hover:text-purple-600 transition-colors font-medium text-xs sm:text-sm">
           <FaShare />
           <span>Share</span>
         </button>
