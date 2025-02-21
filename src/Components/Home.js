@@ -29,7 +29,7 @@ const Home = () => {
           </div>
 
           {/* Posts Section */}
-          <div className="w-full mt-4">
+          <div className="w-full mt-4 border-zinc-950">
             <Posts posts={posts} />
           </div>
         </div>
