@@ -66,7 +66,7 @@ const Stories = () => {
   const renderYourStory = () => (
     <div className="flex-shrink-0 cursor-pointer">
       <div
-        className={`relative w-24 h-24 rounded-full p-1 flex items-center justify-center hover:scale-105 transition-all ${
+        className={`relative w-16 h-16 md:w-24 md:h-24 rounded-full p-1 flex items-center justify-center hover:scale-105 transition-all ${
           myStories.length > 0
             ? "border-2 border-pink-500"
             : "border-2 border-gray-300 bg-gray-100"
@@ -91,7 +91,7 @@ const Stories = () => {
             className="w-full h-full object-cover rounded-full"
           />
         ) : (
-          <FaPlus className="text-gray-600 text-3xl" />
+          <FaPlus className="text-gray-600 text-2xl md:text-3xl" />
         )}
       </div>
       <input
@@ -101,7 +101,9 @@ const Stories = () => {
         onChange={handleFileUpload}
         className="hidden"
       />
-      <p className="text-center mt-1 text-sm text-gray-700 w-24">Your Story</p>
+      <p className="text-center mt-1 text-xs md:text-sm text-gray-700 w-16 md:w-24 truncate">
+        Your Story
+      </p>
     </div>
   );
 
@@ -152,13 +154,14 @@ const Stories = () => {
 
   return (
     <div className="relative mb-1">
-      <div className="flex space-x-6 px-6 py-4 bg-white overflow-x-auto scrollbar-hide max-w-5xl mx-auto">
+      {/* Stories Container */}
+      <div className="flex space-x-4 md:space-x-6 px-4 md:px-6 py-4 bg-white overflow-x-auto scrollbar-hide max-w-5xl mx-auto">
         {renderYourStory()}
         {/* Render other users' stories */}
         {users.map((user) => (
           <div key={user._id} className="flex-shrink-0 cursor-pointer">
             <div
-              className="relative w-24 h-24 border-2 border-pink-500 rounded-full p-1 hover:scale-105 transition-all"
+              className="relative w-16 h-16 md:w-24 md:h-24 border-2 border-pink-500 rounded-full p-1 hover:scale-105 transition-all"
               onClick={() => handleStoryClick(user)}
             >
               <img
@@ -167,16 +170,18 @@ const Stories = () => {
                 className="w-full h-full object-cover rounded-full"
               />
             </div>
-            <p className="text-center mt-1 text-sm text-gray-700 truncate w-24">
+            <p className="text-center mt-1 text-xs md:text-sm text-gray-700 truncate w-16 md:w-24">
               {user.username}
             </p>
           </div>
         ))}
       </div>
 
+      {/* Active Story Modal */}
       {activeStory && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/90 z-[999]">
-          <div className="relative w-full max-w-xl aspect-[9/16] bg-black shadow-lg flex flex-col">
+          <div className="relative w-full h-full md:max-w-xl md:aspect-[9/16] bg-black shadow-lg flex flex-col">
+            {/* Progress Bars */}
             <div className="absolute top-4 left-4 right-4 flex space-x-1">
               {activeStory.stories.map((_, index) => (
                 <div
@@ -196,6 +201,7 @@ const Stories = () => {
               ))}
             </div>
 
+            {/* Close Button */}
             <button
               onClick={handleCloseStory}
               className="absolute top-4 right-4 text-white text-2xl"
@@ -203,6 +209,7 @@ const Stories = () => {
               <FaTimes />
             </button>
 
+            {/* Story Media */}
             <div
               className="relative h-full w-full flex items-center justify-center"
               onMouseDown={() => setIsPaused(true)}
@@ -227,6 +234,7 @@ const Stories = () => {
               )}
             </div>
 
+            {/* Navigation Buttons */}
             <div className="absolute inset-0 flex items-center justify-between px-4">
               <button
                 onClick={handlePreviousStory}
