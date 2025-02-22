@@ -86,7 +86,7 @@ const Post = ({
   };
 
   return (
-    <div className="bg-white p-4 sm:p-5 rounded-xl mb-6 w-full max-w-full mx-auto">
+    <div className="bg-white p-4 sm:p-5 rounded-xl mb-6 max-w-xl mx-auto">
       {/* Header Section */}
       <div className="flex justify-between items-center mb-3 sm:mb-4">
         <div className="flex items-center">
