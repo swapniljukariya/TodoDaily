@@ -1,6 +1,34 @@
  export const posts = [
+  {
+    _id: "67c1a9f31eec8d802e746718",
+    userId: "67a26cf31eec8d802e746707",
+    username: "_reacting_",
+    avatar: "https://miro.medium.com/v2/resize:fit:1400/0*y6IcBe5J1AdALzXw.png",
+    text: "React is a popular JavaScript library for building user interfaces, especially single-page applications. It uses a component-based architecture, allowing developers to break UI into reusable pieces. React relies on a virtual DOM for efficient updates, improving performance. JSX, a syntax extension, lets you write HTML-like code inside JavaScript. State and props help manage data flow within components. To get started, install Node.js, then create a new project using npx create-react-app my-app. Run npm start to launch the development server. Understanding hooks like useState and useEffect will help you manage dynamic behavior efficiently.",
+    mediaUrl: [
+      {
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh4BwS1CqkiBoY72e46EJDCXPnyNSHGt1SZg&s",
+        type: "image", // Fixed: Wrapped in quotes
+      },
+      {
+          url: "https://code.visualstudio.com/assets/docs/nodejs/reactjs/intellisense.png",
+          type: "image", // Fixed: Wrapped in quotes
+        }
+    ],
+    mediaType: "image",
+    likes: ["67a26cf31eec8d802e746605"],
+    comments: [
+      {
+        userId: "67a26cf31eec8d802e746605",
+        username: "Cinephile_club",
+        text: "India all the way! 🇮🇳",
+        createdAt: "2025-02-05T15:00:00.000+00:00",
+      },
+    ],
+    createdAt: "2025-02-05T14:45:00.000+00:00",
+  },
     {
-        _id: "67c1a9f31eec8d802e7467001",
+        _id: "67c1a9f31eec8d802e746701",
         userId: "67a26cf31eec8d802e746609",
         username: "travel_explorer",
         avatar: "https://cdn-icons-png.flaticon.com/512/4140/4140037.png",
@@ -49,7 +77,7 @@
               type: "video", // Fixed: Wrapped in quotes
             },
             {
-                url: "https://v1.pinimg.com/videos/mc/720p/53/df/57/53df57865baeae17cc14577701d9ac79.mp4",
+                url: "https://v1.pinimg.com/videos/mc/720p/51/3b/3d/513b3d5bc6825d19277177c57341bdc7.mp4",
                 type: "video", // Fixed: Wrapped in quotes
               },
           ],
@@ -171,6 +199,10 @@
               url: "https://i.pinimg.com/736x/2d/2d/c0/2d2dc05edee9aac3e7807d04921ede0e.jpg",
               type: "image", // Fixed: Wrapped in quotes
             },
+            {
+              url: "https://i.pinimg.com/736x/1d/f9/da/1df9dadcb030bd9306538aa36a2c23a4.jpg",
+              type: "image", // Fixed: Wrapped in quotes
+            }
           ],
           mediaType: "image",
           likes: ["67a26cf31eec8d802e746606", "67a26cf31eec8d802e746608"],
@@ -189,12 +221,16 @@
           userId: "67a26cf31eec8d802e746610",
           username: "tech_nerd",
           avatar: "https://cdn-icons-png.flaticon.com/512/4140/4140047.png",
-          text: "I have literally been stuck on the same issue for the past three weeks. I have almost no knowledge in programming. i am depending 90% on AI To build my app. and have been using GPT. going in circles the whole time.It took me two prompts, one to explain what i am doing and providing the previous code, And the second was with the ongoing issue. And deepseek solved it in two minutes. I was immediately mindblown. Sadly I had to stop working, only because the server is busy. But I have achieve The goal I was hoping to do by the end of the week already. so its all good. lol",
+          text: "After hours of staring at my screen, questioning my entire existence, and diving deep into Stack Overflow, I finally found the issue. 🤯It all started with a simple function that should have worked—until it didn’t. No errors, no warnings, just pure silence from my console. I rewrote the logic, refactored everything, even sacrificed some sleep, and still… nothing.Then, in a moment of desperation, I started console.logging everything. And there it was—the culprit: a tiny, missing semicolon that broke my entire flow. 😑 One single character held my entire program hostage.Moral of the story? Always check the small things before questioning your career choices. 😂 #TechNerd #DebuggingDiaries #SemicolonStruggles",
           mediaUrl: [
             {
-              url: "https://i.pinimg.com/736x/d9/c2/fb/d9c2fb40608877b62925339f619fb34d.jpg",
+              url: "https://i.pinimg.com/736x/fc/fb/5a/fcfb5a5fa98f3fd9862c8d9e6fdd7911.jpg",
               type: "image", // Fixed: Wrapped in quotes
             },
+            {
+              url: "https://i.pinimg.com/736x/7c/e6/3b/7ce63bbf5d35d78d2cb5504a41537ad8.jpg",
+              type: "image", // Fixed: Wrapped in quotes
+            }
           ],
           mediaType: "image",
           likes: ["67a26cf31eec8d802e746605", "67a26cf31eec8d802e746609"],

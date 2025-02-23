@@ -19,7 +19,7 @@ const RightSidebar = () => {
             className="flex items-center gap-4"
           >
             <img
-              src={user.avatar || "https://via.placeholder.com/150"}
+              src={user.avatar || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"}
               className="w-8 h-8 rounded-full border"
               alt="Profile"
             />

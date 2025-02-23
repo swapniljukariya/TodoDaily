@@ -153,7 +153,7 @@ const Stories = () => {
   }, [activeStory, currentStoryIndex]);
 
   return (
-    <div className="relative mb-1">
+    <div className="relative mb-1 rounded-lg">
       {/* Stories Container */}
       <div className="flex space-x-4 md:space-x-6 px-4 md:px-6 py-4 bg-white overflow-x-auto scrollbar-hide w-full max-w-4xl mx-auto">
         {renderYourStory()}

@@ -406,6 +406,29 @@ export const users = [
             expiresAt: "2025-02-06T12:00:00.000+00:00"
           }
         ]
+      }, {
+        _id: "67a26cf31eec8d802e7466019",
+        name: "ReactDevs",
+        username: "_reacting_",
+        email: "reacting@example.com",
+        password: "$2a$10$XYZH2Jz0XzEmHyCx0v1sermCnzyGQFUAHVG2uNSEW9wdFV9d6XYZ",
+        avatar: "",
+        bio: "Lets React , build solid foundation in react.js",
+        followers: ["67a26cf31eec8d802e746612"],
+        following: ["67a26cf31eec8d802e746613"],
+        createdAt: "2025-02-04T20:00:00.000+00:00",
+        updatedAt: "2025-02-04T20:00:00.000+00:00",
+        stories: [
+          {
+            _id: "67b36cf31eec8d802e746635",
+            mediaUrl: "",
+            text: "Just found the best street food in town! 🌮🔥",
+            type: "image",
+            views: [],
+            createdAt: "2025-02-05T12:00:00.000+00:00",
+            expiresAt: "2025-02-06T12:00:00.000+00:00"
+          }
+        ]
       }
     
   ];

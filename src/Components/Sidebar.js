@@ -27,7 +27,7 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Hamburger Menu for Mobile */}
+      {/* Mobile Hamburger Menu */}
       <button
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white rounded-lg shadow-lg"
@@ -35,13 +35,13 @@ const Sidebar = () => {
         <Menu size={24} />
       </button>
 
-      {/* Sidebar */}
+      {/* Sidebar Container */}
       <div
         className={`${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 fixed left-0 top-0 h-screen w-64 bg-white text-black p-8 flex flex-col font-sans shadow-lg z-30 transition-transform duration-300`}
       >
-        {/* Close Button for Mobile */}
+        {/* Mobile Close Button */}
         <button
           onClick={() => setIsSidebarOpen(false)}
           className="lg:hidden absolute top-4 right-4 text-gray-500 hover:text-gray-700"
@@ -49,9 +49,10 @@ const Sidebar = () => {
           <X size={20} />
         </button>
 
+        {/* Brand Logo */}
         <h1 className="text-2xl font-bold mb-6 px-2 text-red-500">BuzzSocial</h1>
 
-        {/* Navigation Links */}
+        {/* Navigation Menu */}
         <nav className="space-y-2 flex-1">
           <NavLink
             to="/"
@@ -65,7 +66,6 @@ const Sidebar = () => {
             <span>Home</span>
           </NavLink>
 
-          {/* Search Button */}
           <button
             onClick={() => setIsSearchOpen(true)}
             className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 w-full text-left"
@@ -135,7 +135,7 @@ const Sidebar = () => {
           </NavLink>
 
           <NavLink
-            to="/profile"
+            to={`/profile/${user?.username}`}
             className={({ isActive }) =>
               `flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 ${
                 isActive ? "bg-gray-100 font-semibold" : ""
@@ -180,11 +180,11 @@ const Sidebar = () => {
         <div className="mt-auto pt-4 border-t border-gray-200">
           {user ? (
             <NavLink
-              to="/profile"
+              to={`/profile/${user.username}`}
               className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
             >
               <img
-                src={user.profilePic || "https://via.placeholder.com/150"}
+                src= {user.avatar || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"}
                 className="w-8 h-8 rounded-full object-cover"
                 alt="Profile"
               />
@@ -199,7 +199,7 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* Search Popup */}
+      {/* Search Modal */}
       {isSearchOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40"
