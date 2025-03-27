@@ -11,6 +11,7 @@ const RightSidebar = () => {
 
   return (
     <div className="w-80 fixed right-0 top-0 h-screen hidden bg-white lg:block p-6 ">
+      <h1>hello world</h1>
       {/* Current User Profile */}
       {user && (
         <div className="flex items-center justify-between mb-6">

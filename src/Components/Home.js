@@ -14,6 +14,7 @@ const Home = () => {
 
   return (
     <div className="flex w-full h-screen bg-white-400 overflow-hidden">
+      
       {/* Left Sidebar - Hidden on small screens */}
       <div className="hidden lg:block fixed left-0 top-0 h-screen w-64 bg-white">
         <Sidebar />
