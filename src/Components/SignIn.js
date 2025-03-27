@@ -57,7 +57,7 @@ const SignIn = () => {
         </p>
         <p className="mt-6 text-center bg-yellow-500 text-red-800 p-2 rounded-md font-bold shadow-md">
           To see the demo: <br />
-          <span className="text-black">Email: swapniljk@gmail.com</span> <br />
+          <span className="text-black">Email: sagar@gmail.com</span> <br />
           <span className="text-black">Password: 123456789</span>
         </p>
       </div>
