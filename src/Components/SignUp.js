@@ -1,7 +1,6 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
-import './SignUp.css'
 
 const SignUp = () => {
   const { register } = useContext(AuthContext);
@@ -23,18 +22,20 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white p-6 rounded-lg shadow-md w-80">
-        <h2 className="text-2xl font-semibold text-center">Sign Up</h2>
+    <div className="flex flex-col items-center justify-center h-screen bg-red-200">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-96 border-2 border-red-500">
+        <h2 className="text-4xl font-extrabold text-red-600 text-center mb-4 font-mono">
+          Join <span className="text-yellow-500">BuzzSocial</span>
+        </h2>
         {error && <p className="text-red-500 text-center">{error}</p>}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3 mt-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input 
             type="text" 
             value={name} 
             onChange={(e) => setName(e.target.value)} 
             placeholder="Full Name" 
             required 
-            className="p-2 border rounded-md"
+            className="p-3 border-2 border-yellow-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
           />
           <input 
             type="text" 
@@ -42,7 +43,7 @@ const SignUp = () => {
             onChange={(e) => setUsername(e.target.value)} 
             placeholder="Username" 
             required 
-            className="p-2 border rounded-md"
+            className="p-3 border-2 border-yellow-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
           />
           <input 
             type="email" 
@@ -50,7 +51,7 @@ const SignUp = () => {
             onChange={(e) => setEmail(e.target.value)} 
             placeholder="Email" 
             required 
-            className="p-2 border rounded-md"
+            className="p-3 border-2 border-yellow-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
           />
           <input 
             type="password" 
@@ -58,15 +59,17 @@ const SignUp = () => {
             onChange={(e) => setPassword(e.target.value)} 
             placeholder="Password" 
             required 
-            className="p-2 border rounded-md"
+            className="p-3 border-2 border-yellow-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
           />
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+          <button 
+            type="submit" 
+            className="bg-red-500 text-white py-2 rounded-md transition duration-300 transform hover:scale-105 hover:bg-yellow-600 font-bold">
             Register
           </button>
         </form>
-        <p className="mt-4 text-center text-gray-600">
+        <p className="mt-4 text-center text-gray-700">
           Already have an account?{" "}
-          <Link to="/signin" className="text-blue-500 hover:underline">
+          <Link to="/signin" className="text-red-600 font-semibold hover:underline">
             Sign In
           </Link>
         </p>

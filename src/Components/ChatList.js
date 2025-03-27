@@ -2,7 +2,7 @@ import React from "react";
 
 const ChatList = ({ chats, onSelectChat }) => {
   return (
-    <div className="overflow-y-auto w-48 ">
+    <div className="overflow-y-auto w-48">
       {chats.map((chat) => (
         <div
           key={chat.user._id}
